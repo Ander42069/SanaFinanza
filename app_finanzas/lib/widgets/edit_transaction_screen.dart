@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:app_finanzas/add_transaction_screen.dart';
+import 'package:app_finanzas/widgets/add_transaction_screen.dart';
 
 class EditTransactionScreen extends StatefulWidget {
   final TransactionItem transaction;
   final Function(TransactionItem) onEdit;
   final Function(TransactionItem) onDelete;
+  final Function(TransactionItem) onEditTransaction;
 
-  EditTransactionScreen({required this.transaction, required this.onEdit, required this.onDelete});
+  const EditTransactionScreen({super.key, 
+    required this.transaction, 
+    required this.onEdit, 
+    required this.onDelete, 
+    required this.onEditTransaction
+    });
 
   @override
   _EditTransactionScreenState createState() => _EditTransactionScreenState();
@@ -37,10 +43,10 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Ingreso/Gasto'),
+        title: const Text('Editar Ingreso/Gasto'),
         actions: [
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: () {
               _showDeleteConfirmationDialog(context);
             },
@@ -54,18 +60,18 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
           children: [
             TextField(
               controller: nameController,
-              decoration: InputDecoration(labelText: 'Nombre'),
+              decoration: const InputDecoration(labelText: 'Nombre'),
             ),
             TextField(
               controller: typeController,
-              decoration: InputDecoration(labelText: 'Tipo'),
+              decoration: const InputDecoration(labelText: 'Tipo'),
             ),
             TextField(
               controller: amountController,
-              decoration: InputDecoration(labelText: 'Valor'),
+              decoration: const InputDecoration(labelText: 'Valor'),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Lógica para guardar la edición
@@ -79,10 +85,13 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                 // Notificar a la pantalla anterior sobre la edición
                 widget.onEdit(editedTransaction);
 
+                // Aplicar las ediciones en DetailScreen
+                widget.onEditTransaction(editedTransaction);
+
                 // Cerrar la pantalla de edición
-                Navigator.pop(context);
+                Navigator.pop(context, editedTransaction);
               },
-              child: Text('Guardar'),
+              child: const Text('Guardar'),
             ),
           ],
         ),
@@ -97,8 +106,8 @@ Future<void> _showDeleteConfirmationDialog(BuildContext context) async {
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Eliminar Transacción'),
-        content: SingleChildScrollView(
+        title: const Text('Eliminar Transacción'),
+        content: const SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
               Text('¿Estás seguro de que deseas eliminar esta transacción?'),
@@ -107,17 +116,18 @@ Future<void> _showDeleteConfirmationDialog(BuildContext context) async {
         ),
         actions: <Widget>[
           TextButton(
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           TextButton(
-            child: Text('Eliminar'),
+            child: const Text('Eliminar'),
             onPressed: () {
               // Lógica para eliminar la transacción
               widget.onDelete(widget.transaction);
               Navigator.of(context).pop();
+              Navigator.pop(context);
             },
           ),
         ],

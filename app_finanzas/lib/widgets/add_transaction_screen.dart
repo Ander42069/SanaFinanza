@@ -7,13 +7,13 @@ class AddTransactionScreen extends StatelessWidget {
   final TextEditingController amountController = TextEditingController();
   final List<TransactionItem> transactions;
 
-  AddTransactionScreen({required this.transactions});
+  AddTransactionScreen({super.key, required this.transactions});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agregar Ingreso/Gasto'),
+        title: const Text('Agregar Ingreso/Gasto'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -22,21 +22,21 @@ class AddTransactionScreen extends StatelessWidget {
           children: [
             TextField(
               controller: nameController,
-              decoration: InputDecoration(labelText: 'Nombre'),
+              decoration: const InputDecoration(labelText: 'Nombre'),
             ),
             TextField(
               controller: typeController,
-              decoration: InputDecoration(labelText: 'Tipo'),
+              decoration: const InputDecoration(labelText: 'Tipo'),
             ),
             TextField(
               controller: amountController,
-              decoration: InputDecoration(labelText: 'Valor'),
+              decoration: const InputDecoration(labelText: 'Valor'),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                final uuid = Uuid();
+                const uuid = Uuid();
                 final newTransaction = TransactionItem(
                   id: uuid.v4(), //Genera un identificador único
                   name: nameController.text,
@@ -45,12 +45,12 @@ class AddTransactionScreen extends StatelessWidget {
                 );
 
                 // Agregar el nuevo ingreso/gasto a la lista
-                transactions.add(newTransaction);
+                //transactions.add(newTransaction);
                 
-                // Cerrar la pantalla de agregar ingreso/gasto
-                Navigator.pop(context);
+                // Cerrar la pantalla de agregar ingreso/gasto y retornar la nueva transacción
+                Navigator.pop(context, newTransaction);
               }, 
-              child: Text('Guardar')
+              child: const Text('Guardar'),
             ),
           ],
         ),

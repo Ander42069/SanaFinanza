@@ -23,9 +23,10 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.app_finanzas"
-    compileSdkVersion flutter.compileSdkVersion
+    namespace 'com.example.app_finanzas'
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
+    //buildToolsVersion "34.0.0" // Agregué esta línea para especificar la versión de las herramientas de compilación
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
