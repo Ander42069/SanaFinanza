@@ -24,7 +24,7 @@ class MyFinanceApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SanaFinanza',
+      title: 'GastoSano',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
